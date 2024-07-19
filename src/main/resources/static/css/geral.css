@@ -1,0 +1,18 @@
+.header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    font-size: 35px;
+
+}
+.section {
+    position: relative;
+    top: 70px;
+}
+.footer{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
