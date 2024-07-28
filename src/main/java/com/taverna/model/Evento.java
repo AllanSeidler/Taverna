@@ -2,48 +2,69 @@ package com.taverna.model;
 import java.util.Date;
 
 public class Evento {
-    String nome;
-    float inscricao;
-    String endereco;
-    Date data;
-    boolean presencial;
-    Object interesse;         //Substituir Object por classe Interesse
-    Usuario dono;
-    String getNome() {
-        return this.nome;
-    }
-    void setNome(String name){
-        this.nome = name;
-    }
-    float getInscricao(){
-        return this.inscricao;
-    }
-    void setInscricao(float ins){
-        this.inscricao = ins;
-    }
-    String getEndereco(){
-        return this.endereco;
-    }
-    void setEndereco(String adr){
-        this.endereco = adr;
-    }
-    void setData(Date dia){
-        this.data = dia;
-    }
-    Date getData(){
-        return this.data;
-    }
-    boolean getPresencial(){
-        return this.presencial;
-    }
-    void setPresencial(boolean aoVivo){
-        this.presencial = aoVivo;
-    }
-    Object getJogo(){               //Substituir Object por classe Interesse
-        return this.interesse;
-    }
-    void setJogo(Object game){      //Substituir Object por classe Interesse
-        this.interesse = game;
+    private Usuario responsavel;
+    private String nome;
+    private float inscricao;
+    private String endereco;
+    private Date data;
+    private boolean presencial;
+    private Interesse jogo;
+
+
+
+    public Usuario getResponsavel() {
+        return responsavel;
     }
 
+    public void setResponsavel(Usuario responsavel) {
+        this.responsavel = responsavel;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public float getInscricao() {
+        return inscricao;
+    }
+
+    public void setInscricao(float inscricao) {
+        this.inscricao = inscricao;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public Date getData() {
+        return data;
+    }
+
+    public void setData(Date data) {
+        this.data = data;
+    }
+
+    public boolean isPresencial() {
+        return presencial;
+    }
+
+    public void setPresencial(boolean presencial) {
+        this.presencial = presencial;
+    }
+
+    public Interesse getJogo() {
+        return jogo;
+    }
+
+    public void setJogo(Interesse jogo) {
+        this.jogo = jogo;
+    }
 }
