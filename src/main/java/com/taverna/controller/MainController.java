@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 
     /**
+     * @author AllanSeidler
+     *
+     * @implNote
      * Simplismente o menu.
      * */
-    @GetMapping("/")
+    @GetMapping(value = {"/","/index"})
     public String menu(){
         return "index";
     }
