@@ -2,9 +2,7 @@ package com.taverna.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
-
+import java.util.Set;
 
 @Entity
 public class Usuario {
@@ -22,11 +20,31 @@ public class Usuario {
     private String senha;
 
     @ManyToMany
-    @JoinTable(name = "interesses_usuarios",
+    @JoinTable(name = "interesses_usuario",
             joinColumns = @JoinColumn(name = "id_usuario"),
             inverseJoinColumns = @JoinColumn(name = "id_interesse"))
-    private List<Interesse> interesses;
+    private Set<Interesse> interesses;
 
+    @Column
+    private String endereco;
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", login='" + login + '\'' +
+                ", senha='" + senha + '\'' +
+                ", interesses=" + interesses +
+                ", endereco='" + endereco + '\'' +
+                '}';
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Usuario){
+            return this.id==((Usuario) obj).id;
+        } else return false;
+    }
 
     public String getNome() {
         return nome;
@@ -52,11 +70,11 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public List<Interesse> getInteresses() {
+    public Set<Interesse> getInteresses() {
         return interesses;
     }
 
-    public void setInteresses(List<Interesse> interesses) {
+    public void setInteresses(Set<Interesse> interesses) {
         this.interesses = interesses;
     }
 
@@ -66,5 +84,13 @@ public class Usuario {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 }

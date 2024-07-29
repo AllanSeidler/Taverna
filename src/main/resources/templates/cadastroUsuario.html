@@ -9,21 +9,26 @@
 </head>
 <body>
 <section class="section">
-    <form method="post">
+    <form method="post" th:action="@{/adicionar-usuario}" th:object="${usuario}">
 
         <label for="nome">Nome: </label>
-            <input type="text" id="nome" name="nome" maxlength="15" required>
+            <input type="text" id="nome" th:field="*{nome}" maxlength="15" required>
+            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
             <br>
+
 
         <label for="login">Login: </label>
             <input type="text" id="login" name="login" maxlength="40" required>
+            <span th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
             <br>
-        <label for="password">Senha: </label>
-            <input type="password" id="password" name="password" maxlength="20" required>
+        <label for="senha">Senha: </label>
+            <input type="password" id="senha" th:field="*{senha}" maxlength="20" required>
+            <span th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></span>
             <br>
-        <label for="password-confirm">Confirme a senha: </label>
-            <input type="password" id="password-confirm" name="password-confirm" maxlength="20" required>
-            <br>
+<!--        <label for="confirmar-senha">Confirme a senha: </label>-->
+<!--            <input type="password" id="confirmar-senha" th:field="*{confirmar-senha}" maxlength="20" required>-->
+<!--            <span th:if="${#fields.hasErrors('confirmar-senha')}" th:errors="*{confirmar-senha}"></span>-->
+<!--            <br>-->
 
         <label for="cidade">Cidade: </label>
             <input type="text" id="cidade" name="cidade" maxlength="20" >
@@ -31,11 +36,10 @@
             <input type="text" id="estado" name="estado" maxlength="20" >
             <br>
 
+        <!-- Não funcional! -->
         <label for="interesses">Selecione seus interesses: </label>
-        <select name="interesses" id="interesses" multiple filterable-checkable-multi-select >
-            <option value="1">Magic: The Gathering</option>
-            <option value="3">Yu-Gi-Oh!</option>
-            <option value="8">Pokémon TCG</option>
+        <select  name="interesses" id="interesses" multiple filterable-checkable-multi-select >
+            <option th:each="interesse : ${interesses_disponiveis}" th:value="${interesse.id}" th:text="${interesse.interesse}"></option>
         </select>
 
         <input type="submit" value="Confirmar">
