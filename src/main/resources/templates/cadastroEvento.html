@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Evento</title>
+
+</head>
+<body>
+    <div class="sidebar"></div>
+    <div class="container">
+        <div class="header">
+            <a href="#">← Voltar</a>
+            <h1>Cadastro de Evento</h1>
+        </div>
+        <div class="form-container">
+            <h2>Preencha as informações para realizar o cadastro.</h2>
+            <form>
+                <label for="eventName">Nome do evento</label>
+                <input type="text" id="eventName" name="eventName">
+                <br/>
+                
+                <label for="tipoJogo">Selecione o jogo: </label>
+                <select  name="tipoJogo" id="tipoJogo" >
+                    <option th:each="tipoJogo : ${tipoJogo_disponiveis}" th:value="${tipoJogo.id}" th:text="${tipoJogo.tipoJogo}"></option>
+                </select>
+                
+                <label for="prize">Premiação</label>
+                <input type="text" id="prize" name="prize">
+                <br/>
+                
+                <div class="form-group">
+                    <div>
+                        <label for="eventDate">Data do evento</label>
+                        <input type="date" id="eventDate" name="eventDate">
+                    </div>
+                    <div>
+                        <label for="eventTime">Hora do evento</label>
+                        <input type="time" id="eventTime" name="eventTime">
+                    </div>
+                </div>
+                <br/>
+                
+                <label for="formato">Selecione o formato do jogo: </label>
+                <select  name="formato" id="formato" multiple filterable-checkable-multi-select >
+                    <option th:each="formato : ${formatos_disponiveis}" th:value="${formato.id}" th:text="${formato.formato}"></option>
+                </select>
+                
+                <label for="modality">Modalidade</label>
+                <input type="text" id="modality" name="modality">
+                <br/>
+                <label for="link">Link / Endereço</label>
+                <input type="text" id="link" name="link">
+                <br/>
+                <label for="registrationFee">Valor da inscrição</label>
+                <input type="text" id="registrationFee" name="registrationFee">
+                <br/>
+                <button type="submit">Cadastre-se</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
