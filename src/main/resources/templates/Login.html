@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            width: 800px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .left {
+            width: 40%;
+            background: url('background.jpg') no-repeat center center;  /* colocar aqui imagem de background */
+            background-size: cover;
+            position: relative;
+        }
+        .left:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .left img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+        }
+        .right {
+            width: 60%;
+            padding: 40px;
+        }
+        .right h2 {
+            margin-top: 0;
+            font-weight: 400;
+        }
+        .right form {
+            display: flex;
+            flex-direction: column;
+        }
+        .right form input[type="email"],
+        .right form input[type="password"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .right form input[type="checkbox"] {
+            margin: 10px 0;
+        }
+        .right form button {
+            padding: 10px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .right form button:hover {
+            background: #555;
+        }
+        .right .register-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .right .register-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="left">
+        <img src="logo.png" alt="Logo"> <!-- Colocar aqui imagem de logo -->
+    </div>
+    <div class="right">
+        <h2>Login</h2>
+        <p>Se você já tem uma conta realize o login.</p>
+        <form action="/login" method="post">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="senha" placeholder="Senha" required>
+            <label>
+                <input type="checkbox" name="remember"> Se lembre de mim
+            </label>
+            <button type="submit">Realizar login</button>
+        </form>
+        <div class="register-link">
+            <p>Não tem uma conta? <a href="/register">Registre-se aqui</a></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
