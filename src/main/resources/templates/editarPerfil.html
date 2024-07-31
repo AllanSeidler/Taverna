@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil</title>
+</head>
+<body>
+<header class="header">
+    <div class="row bg-dark gap-2">
+        <div class="col-1"></div>
+        <div class="col-3"><a class="link-light link-underline-opacity-0" href="/">Taverna</a></div>
+        <div class="col-8"></div>
+    </div>
+</header>
+<section>
+    <div class="container">
+        <h1>Editar Perfil</h1>
+
+        <!-- Espaço para mensagens de erro ou sucesso -->
+        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+        <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
+        <form action="#" th:action="@{/perfil/editar}" th:object="${usuario}" method="post">
+            <input type="hidden" th:value="${usuario.id}" name="id"/>
+            <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" th:value="${usuario.nome}" required>
+            </div>
+            <div>
+                <label for="cidade">Cidade:</label>
+                <input type="text" id="cidade" name="cidade" th:value="${#jsonpath.evaluate(usuario.endereco, '$.cidade')}" required>
+            </div>
+            <div>
+                <label for="estado">Estado:</label>
+                <input type="text" id="estado" name="estado" th:value="${#jsonpath.evaluate(usuario.endereco, '$.estado')}" required>
+            </div>
+            <div>
+                <label for="interesses">Interesses:</label>
+                <select id="interesses" name="interesses" multiple>
+                    <option th:each="interesse : ${interesseRepository.findAll()}"
+                            th:value="${interesse.id}"
+                            th:text="${interesse.interesse}"
+                            th:selected="${usuario.interesses.contains(interesse)}"></option>
+                </select>
+            </div>
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
+</section>
+<footer class="footer">
+    <div class="row bg-dark gap-2">
+        <div class="col-4"></div>
+        <div class="col-4">Taverna-2024</div>
+        <div class="col-4"></div>
+    </div>
+</footer>
+</body>
+</html>
