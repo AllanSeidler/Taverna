@@ -1,0 +1,122 @@
+/* Define a fonte usada no site */
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+/* Sidebar com tamanho fixo */
+.sidebar {
+    background-image: url('/img/fundoTaverna.png');/* Caminho relativo ao diretório static */
+    background-size: cover;
+    background-position: center;
+    width: 300px;  /* Sidebar com largura fixa */
+    height: 100vh;
+    position: fixed;
+}
+
+/* Estilo para a logo SVG na sidebar */
+.sidebar .logo {
+    position: absolute; /* Logo será posicionada sobre a imagem de fundo */
+    top: 20px; /* Ajuste a distância do topo conforme necessário */
+    width: 150%; /* Ajuste a largura da logo conforme necessário */
+    max-width: 250px; /* Limite o tamanho máximo da logo */
+    z-index: 1; /* Assegura que a logo fique sobreposta */
+}
+
+.sidebar .logo img {
+    width: 100%;
+    height: auto;
+}
+
+/* Container principal */
+.container {
+    margin-left: 300px;  /* Ajusta a margem para o tamanho da sidebar */
+    padding: 40px;
+    overflow-y: auto;  /* Permite rolagem vertical */
+    height: 100vh;
+}
+
+/* Estilos do cabeçalho */
+.header {
+    margin-bottom: 20px;
+}
+
+.header a {
+    text-decoration: none;
+    color: #000;
+    font-size: 16px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* Estilo do formulário */
+.form-container h2 {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+input, select {
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="date"], input[type="time"] {
+    padding: 8px;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-group div {
+    width: 48%;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* Ajuste para telas menores */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .container {
+        margin-left: 0;
+        padding-top: 0;
+    }
+}
