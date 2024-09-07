@@ -1,26 +1,24 @@
-/* Define a fonte usada no site */
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
 }
 
-/* Sidebar com tamanho fixo */
 .sidebar {
-    background-image: url('/img/fundoTaverna.png');/* Caminho relativo ao diretório static */
     background-size: cover;
     background-position: center;
-    width: 300px;  /* Sidebar com largura fixa */
+    width: 300px;
     height: 100vh;
     position: fixed;
 }
 
+
 /* Estilo para a logo SVG na sidebar */
 .sidebar .logo {
-    position: absolute; /* Logo será posicionada sobre a imagem de fundo */
-    top: 20px; /* Ajuste a distância do topo conforme necessário */
-    width: 150%; /* Ajuste a largura da logo conforme necessário */
-    max-width: 250px; /* Limite o tamanho máximo da logo */
-    z-index: 1; /* Assegura que a logo fique sobreposta */
+    position: absolute;     /* Logo será posicionada sobre a imagem de fundo */
+    top: 20px;
+    width: 150%;
+    max-width: 250px;
+    z-index: 1;             /* Assegura que a logo fique sobreposta */
 }
 
 .sidebar .logo img {
@@ -28,15 +26,15 @@ body {
     height: auto;
 }
 
-/* Container principal */
+
 .container {
-    margin-left: 300px;  /* Ajusta a margem para o tamanho da sidebar */
+    margin-left: 300px;
     padding: 40px;
-    overflow-y: auto;  /* Permite rolagem vertical */
+    overflow-y: auto;
     height: 100vh;
 }
 
-/* Estilos do cabeçalho */
+
 .header {
     margin-bottom: 20px;
 }
@@ -53,7 +51,6 @@ body {
     font-weight: 700;
 }
 
-/* Estilo do formulário */
 .form-container h2 {
     font-size: 16px;
     font-weight: 400;
@@ -107,7 +104,7 @@ button:hover {
     background-color: #555;
 }
 
-/* Ajuste para telas menores */
+
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
