@@ -33,6 +33,7 @@ public class UsuarioController {
 
     @Autowired
     private InteresseRepository interesseRepository;
+
     /**
      * @author AllanSeidler
      *
@@ -73,7 +74,7 @@ public class UsuarioController {
         return "redirect:/index";
     }
 
-    /*
+    /**
      *  @author JALPassini
      *
      *  @impNote
@@ -100,7 +101,7 @@ public class UsuarioController {
         return "perfil";
     }
 
-    /*
+    /**
      *  @author JALPassini
      *
      *  @impNote
