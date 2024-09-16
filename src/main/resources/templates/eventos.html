@@ -1,66 +1,77 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <title>Página de Torneios</title>
+
+    <!-- Importar CSS -->
+    <link rel="stylesheet" href="static/css/eventos.css" th:href="@{/static/css/eventos.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <header>
-    <button id="taverna">
-        Taverna
-        <img src="img/logoTaverna.png" alt="Logo Taverna">
-    </button>
-    <button id="adicionar">+ Adicionar</button>
+    <div class="header-left">
+        <div class="logo-container">
+            <h1 class="title">Taverna</h1>
+            <img src="/static/img/LogoEscurecida.svg" alt="Logo Taverna" class="logo" th:src="@{/imagens/logoEscurecida.svg}">
+        </div>
+    </div>
+    <div class="header-right">
+        <a href="#" class="add-button">
+            <span class="add-icon">+</span> Adicionar
+        </a>
+    </div>
 </header>
-<div class="filtros">
-    <h2>Filtros</h2>
-    <form>
-        <div class="checkbox-group">
-            <input type="checkbox" id="yu-gi-oh" name="yu-gi-oh">
-            <label for="yu-gi-oh">Yu-Gi-Oh!</label>
-        </div>
-        <div class="checkbox-group">
-            <input type="checkbox" id="magic" name="magic">
-            <label for="magic">Magic</label>
-        </div>
-        <div class="checkbox-group">
-            <input type="checkbox" id="pokemon" name="pokemon">
-            <label for="pokemon">Pokemon</label>
-        </div>
+
+<section class="filtros">
+    <form action="#" method="get">
+        <fieldset>
+            <legend>Filtros</legend>
+
+            <label>
+                <input type="checkbox" id="filtro1" name="jogo" value="YuGiOh">
+                Yu-Gi-Oh
+            </label>
+
+            <label>
+                <input type="checkbox" id="filtro2" name="jogo" value="MagicTheGathering">
+                Magic: The Gathering
+            </label>
+
+            <label>
+                <input type="checkbox" id="filtro3" name="jogo" value="Pokemon">
+                Pokémon Card Game
+            </label>
+
+            <button type="submit">Buscar</button>
+        </fieldset>
     </form>
-    <button type="button" id="buscar">Buscar</button>
-</div>
-<div class="banners">
-    <div class="banner" id="banner1">
-        <img src="img/eventoYugioh.png" alt="Banner 1">
-        <p>Nome: Piedade WCQ<br>
-            Tipo de Jogo: Yu-Gi-Oh!<br>
-            Modalidade: Online<br>
-            Inscrição: R$7,00<br>
-            Link: www.site.com.br<br>
-            Data: 02/05/2023 às 14:00</p>
+</section>
+
+<section class="torneios">
+    <!-- Renderizando eventos dinamicamente com Thymeleaf -->
+    <div th:each="evento : ${eventos}" class="torneio-card"
+         th:classappend="${evento.jogo} == 'Yu-Gi-Oh' ? 'yugioh' :
+                            (evento.jogo == 'Magic: The Gathering' ? 'magic' :
+                            (evento.jogo == 'Pokémon Card Game' ? 'pokemon' : ''))">
+        <div class="torneio-info">
+            <h2 th:text="'Nome: ' + ${evento.nome}">Nome: Torneio</h2>
+            <p th:text="'Tipo de Jogo: ' + ${evento.jogo}">Tipo de Jogo: </p>
+            <p th:text="'Modalidade: ' + (${evento.presencial} ? 'Presencial' : 'Online')">Modalidade: </p>
+            <p th:text="'Inscrição: R$' + ${#numbers.formatDecimal(evento.inscricao, 2, 2)}">Inscrição: </p>
+            <p th:text="${evento.presencial} ? 'Endereço: ' + ${evento.endereco} : 'Link: ' + ${evento.endereco}">Endereço ou Link: </p>
+            <p th:text="'Data: ' + ${#dates.format(evento.data, 'dd/MM/yyyy HH:mm')}">Data: </p>
+        </div>
     </div>
-    <div class="banner" id="banner2">
-        <img src="img/eventoMagic.png" alt="Banner 2">
-        <p>Nome: Copa Basdão<br>
-            Tipo de Jogo: Magic The Gathering<br>
-            Modalidade: Presencial<br>
-            Inscrição: R$10,00<br>
-            Endereço: Rua do Limoeiro 123<br>
-            Data: 30/04/2023 às 19:30</p>
+</section>
+
+<footer>
+    <div class="pagination">
+        <span>&laquo;</span>
+        <span th:each="i : ${#numbers.sequence(1, totalPaginas)}" th:text="${i}" th:classappend="${i == paginaAtual} ? 'active'"></span>
+        <span>&raquo;</span>
     </div>
-    <div class="banner" id="banner3">
-        <img src="img/eventoPokemon.png" alt="Banner 3">
-        <p>Nome: Ginásio Plus Power Shop<br>
-            Tipo de Jogo: Magic The Gathering<br>
-            Modalidade: Presencial<br>
-            Inscrição: R$10,00<br>
-            Endereço: Rua do Limoeiro 123<br>
-            Data: 30/04/2023 às 19:30</p>
-    </div>
-</div>
+</footer>
 </body>
 </html>

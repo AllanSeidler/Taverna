@@ -1,0 +1,169 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('../img/fundoTaverna.png'); /* Fundo geral */
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    position: relative;
+    background-image: url('../img/fundoTaverna.png'); /* Fundo na parte superior */
+    background-size: cover;
+}
+
+header .logo-container {
+    display: flex;
+    align-items: center;
+}
+
+header .title {
+    font-size: 36px;
+    color: white;
+    margin-right: 15px;
+}
+
+header .logo {
+    width: 60px;
+    height: auto;
+}
+
+.add-button {
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    border: 1px solid white;
+    transition: background-color 0.3s;
+}
+
+.add-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.add-icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.filtros {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco com transparência */
+    margin: 20px auto; /* Centraliza o container */
+    border-radius: 10px;
+    width: 80%; /* Mesma largura dos containers de eventos */
+    max-width: 900px; /* Limita a largura máxima */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Pequeno efeito de sombra */
+}
+
+.filtros fieldset {
+    border: none;
+    display: flex;
+    flex-direction: column; /* Faz os elementos ficarem um abaixo do outro */
+}
+
+.filtros legend {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.filtros label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.filtros label input {
+    margin-right: 10px;
+}
+
+.filtros button {
+    background-color: #555; /* Cinza para o botão */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.filtros button:hover {
+    background-color: #777;
+}
+
+.torneios {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Estilos para cada tipo de evento */
+.torneio-card {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 900px;
+    position: relative;
+    height: 200px; /* Altura fixa para os cards */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Pequeno efeito de sombra */
+}
+
+.torneio-card h2, .torneio-card p {
+    z-index: 1; /* Coloca o texto na frente */
+    position: relative;
+}
+
+/* Imagem de fundo personalizada para cada card */
+.torneio-card.yugioh {
+    background-image: url('../img/eventosImg/eventoYugioh.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.torneio-card.magic {
+    background-image: url('../img/eventosImg/eventoMagic.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.torneio-card.pokemon {
+    background-image: url('../img/eventosImg/eventoPokemon.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.pagination {
+    text-align: center;
+    padding: 20px;
+}
+
+.pagination span {
+    cursor: pointer;
+    padding: 10px 15px;
+    margin: 0 5px;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+}
+
+.pagination span:hover {
+    background-color: #555;
+}
