@@ -6,6 +6,9 @@ import com.taverna.repository.UsuarioRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Collection;
 
 /**
  * @author AllanSeidler
@@ -28,9 +33,12 @@ import org.springframework.web.bind.annotation.RequestParam;
  * */
 @Controller
 public class UsuarioController {
+
+    private final String USUARIO_LOGADO = "USUARIO_LOGADO";
+
+
     @Autowired
     private UsuarioRepository usuarioRepository;
-
     @Autowired
     private InteresseRepository interesseRepository;
 
@@ -74,8 +82,25 @@ public class UsuarioController {
         return "redirect:/index";
     }
 
+
+    @PostMapping("/confirmar-login")
+    public String confirmarLogin(@ModelAttribute("login") String login,
+                                 @ModelAttribute("senha") String senha,
+                                 HttpServletRequest request){
+
+        Usuario u = usuarioRepository.findUserByLogin(login,senha);
+        if(u!=null){
+            System.out.println(u);
+            request.getSession().setAttribute(USUARIO_LOGADO,u);
+        }
+        return "redirect:/index";
+    }
+    @GetMapping("/login")
+    public String MostrarTelaLogin(){return "login";}
+
     /**
      *  @author JALPassini
+     * @author AllanSeidler
      *
      *  @impNote
      *  Ajeitar o DS "Ver Perfil" para que se
@@ -84,20 +109,36 @@ public class UsuarioController {
      *  @return retornar para o perfil de um usuario especifico.
      */
 
-    // Exibir o perfil do usuário
+    // Mostra o perfil do usuário
+    @GetMapping("/perfil")
+    public String mostrarPerfilProprio(Model model, HttpServletRequest request) {
+        Usuario usuarioLogado = (Usuario) request.getSession().getAttribute(USUARIO_LOGADO);
+
+        // usuario == usuarioLogado?
+        model.addAttribute("dono", true);
+        // dono do perfil
+        model.addAttribute("usuario", usuarioLogado);
+        System.out.println(usuarioLogado.getEndereco());
+
+        return "perfil";
+    }
+
     // Mostra o perfil de um usuário específico
     @GetMapping("/perfil/{id}")
-    public String mostrarPerfil(@PathVariable int id, Model model, HttpServletRequest request) {
+    public String mostrarPerfil(@PathVariable Integer id, Model model, HttpServletRequest request) {
         Usuario usuario = usuarioRepository.findById(id).orElse(null);
-        Usuario usuarioLogado = (Usuario) request.getSession().getAttribute("USUARIO_LOGADO");
+        Usuario usuarioLogado = (Usuario) request.getSession().getAttribute(USUARIO_LOGADO);
 
         if (usuario == null) {
             model.addAttribute("erro", "Usuário não encontrado.");
             return "erro_perfil";
         }
-
+        // usuario == usuarioLogado?
+        model.addAttribute("dono", usuario.equals(usuarioLogado));
+        // dono do perfil
         model.addAttribute("usuario", usuario);
-        model.addAttribute("usuarioLogado", usuarioLogado);
+        System.out.println(usuario.getEndereco());
+
         return "perfil";
     }
 

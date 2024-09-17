@@ -7,13 +7,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/geral.css}">
 </head>
 <body>
-    <header class="header">
-        <div class="row bg-dark gap-2">
-            <div class="col-1"></div> <!--espaço pulado-->
-            <div class="col-3"><a class="link-light link-underline-opacity-0" href="/">Taverna</a></div>
-            <div class="col-8"></div><!--espaço pulado-->
-        </div>
-    </header>
+    <div th:replace="header :: header"></div>
     <section class="section">
         <div class="container">
             <h1>Taverna</h1>
@@ -21,13 +15,6 @@
             <a href="#" class="btn">Buscar Eventos</a>
         </div>
     </section>
-
-    <footer class="footer">
-        <div class="row bg-dark gap-2" >
-            <div class="col-4"></div> <!--espaço pulado-->
-            <div class="col-4">Taverna-2024</div>
-            <div class="col-4"></div> <!--espaço pulado-->
-        </div>
-    </footer>
+    <div th:replace="footer :: footer"></div>
 </body>
 </html>

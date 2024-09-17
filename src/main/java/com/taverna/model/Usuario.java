@@ -2,6 +2,7 @@ package com.taverna.model;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -41,8 +42,8 @@ public class Usuario {
     }
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Usuario){
-            return this.id==((Usuario) obj).id;
+        if(obj instanceof Usuario u){
+            return Objects.equals(this.id, u.id);
         } else return false;
     }
 

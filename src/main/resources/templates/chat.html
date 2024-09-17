@@ -3,63 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/chat.css}">
     <title>Interface de Chat</title>
-    <style>
-        body {
-            display: flex;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            height: 100vh;
-        }
-        .sidebar {
-            width: 25%;
-            background: #333;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .sidebar img {
-            width: 100px;
-        }
-        .chat-container {
-            width: 75%;
-            display: flex;
-            flex-direction: column;
-        }
-        .chat-header {
-            padding: 20px;
-            background: #f1f1f1;
-            border-bottom: 1px solid #ddd;
-        }
-        .chat-body {
-            flex: 1;
-            padding: 20px;
-            background: white;
-            overflow-y: auto;
-        }
-        .chat-footer {
-            padding: 20px;
-            background: #f1f1f1;
-            border-top: 1px solid #ddd;
-            display: flex;
-        }
-        .chat-footer input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        .chat-footer button {
-            margin-left: 10px;
-            padding: 10px 20px;
-            background: #007bff;
-            border: none;
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
 <div class="sidebar">
