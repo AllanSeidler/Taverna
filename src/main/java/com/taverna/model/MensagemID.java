@@ -3,8 +3,11 @@ package com.taverna.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import org.springframework.cglib.core.Local;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -14,15 +17,11 @@ public class MensagemID implements Serializable {
     @Column(name = "id_remetente")
     int remetente;
 
-    @Column(name = "id_dentinatario")
+    @Column(name = "id_destinatario")
     int destinatario;
 
     @Column
-    Date data;
-
-    public MensagemID() {
-
-    }
+    LocalDateTime data;
 
     public int getRemetente() {
         return remetente;
@@ -40,11 +39,11 @@ public class MensagemID implements Serializable {
         this.destinatario = destinatario;
     }
 
-    public Date getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 
@@ -62,5 +61,14 @@ public class MensagemID implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(remetente, destinatario, data);
+    }
+
+    @Override
+    public String toString() {
+        return "MensagemID{" +
+                "remetente=" + remetente +
+                ", destinatario=" + destinatario +
+                ", data=" + data +
+                '}';
     }
 }

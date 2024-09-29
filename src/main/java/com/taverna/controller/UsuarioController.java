@@ -33,7 +33,7 @@ import java.util.Collection;
  * */
 @Controller
 public class UsuarioController {
-    private final String USUARIO_LOGADO = "USUARIO_LOGADO";
+    private static final String USUARIO_LOGADO = "USUARIO_LOGADO";
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -84,6 +84,7 @@ public class UsuarioController {
                                  HttpServletRequest request){
 
         Usuario u = usuarioRepository.findUserByLogin(login,senha);
+        System.out.println("usuario logado: "+u);
         if(u==null) return "redirect:/login";
 
         request.getSession().setAttribute(USUARIO_LOGADO,u);

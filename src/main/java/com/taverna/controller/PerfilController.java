@@ -78,13 +78,13 @@ public class PerfilController {
      *  encaixe dentro da descrição desse método.
      *  @return Mostra o perfil do usuário com campos editáveis.
      */
-    @GetMapping("/editar-perfil/{id}")
-    public String editarPerfil(@PathVariable int id, Model model) {
-        Usuario usuario = usuarioRepository.findById(id).orElse(null);
+    @GetMapping("/editar-perfil")
+    public String editarPerfil(HttpServletRequest request, Model model) {
+        Usuario usuario = (Usuario) request.getSession().getAttribute(USUARIO_LOGADO);
 
         if (usuario == null) {
             model.addAttribute("erro", "Usuário não encontrado.");
-            return "erro_perfil";
+            return "redirect:/login";
         }
 
         model.addAttribute("usuario", usuario);
@@ -97,20 +97,21 @@ public class PerfilController {
      *  @implNote Salva alterações feitas no perfil.
      *  @return Redireciona para o caso '/perfil/{id}'.
      */
-    @PostMapping("/salvar-perfil/{id}")
-    public String salvarPerfil(@PathVariable int id, @Valid Usuario usuario,
+    @PostMapping("/salvar-perfil")
+    public String salvarPerfil(@Valid Usuario usuario,
                                BindingResult result, Model model,
                                @RequestParam("cidade") String cidade,
-                               @RequestParam("estado") String estado) {
+                               @RequestParam("estado") String estado,
+                               HttpServletRequest request) {
         if (result.hasErrors()) {
             model.addAttribute("interesses_disponiveis", interesseRepository.findAll());
             return "editarPerfil";
         }
 
-        Usuario usuarioExistente = usuarioRepository.findById(id).orElse(null);
+        Usuario usuarioExistente = (Usuario) request.getSession().getAttribute(USUARIO_LOGADO);
         if (usuarioExistente == null) {
             model.addAttribute("erro", "Usuário não encontrado.");
-            return "erro_perfil";
+            return "redirect:/login";
         }
 
         // Atualiza os campos editáveis do usuário
@@ -121,6 +122,7 @@ public class PerfilController {
 
         usuarioRepository.save(usuarioExistente);
         model.addAttribute("mensagem", "Alterações realizadas com sucesso.");
-        return "redirect:/perfil/" + id;
+
+        return "redirect:/perfil";
     }
 }
