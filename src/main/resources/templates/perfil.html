@@ -26,9 +26,10 @@
                     <p th:text="${interesse.interesse}"></p>
                 </div>
             </div>
-            <div th:if="dono==true">
-                <button>Editar perfil</button>
-                <button>Ver amigos</button>
+            <div th:if="${dono==true}">
+                <a class="btn btn-secondary btn-sm" th:href="@{/editar-perfil}">Editar perfil</a>
+                <a class="btn btn-secondary btn-sm">Ver amigos</a>
+
             </div>
         </div>
     </section>

@@ -8,18 +8,29 @@
 </head>
 <body>
 <div class="sidebar">
-    <img src="logo.png" alt="Logo"> <!-- substituir pela imagem do logo-->
+    <img th:src="@{/img/logo.svg}" alt="Logo"> <!-- substituir pela imagem do logo-->
 </div>
 <div class="chat-container">
     <div class="chat-header">
-        Usuário 2 <!-- substituir pelo outro usuário-->
+
+        <h1 th:text="${usuario2.nome}"></h1>
     </div>
     <div class="chat-body">
-        <!-- Mensagens do chat irão aqui -->
+
+        <div th:each="mensagem : ${mensagens}">
+            <div th:switch="${mensagem.mensagemID.remetente==usuario1.id}" >
+                <div th:case="true"><p th:text="'Você: ' + ${mensagem.conteudo}"></p></div>
+                <div th:case="false"><p th:text="${usuario2.nome}+': ' + ${mensagem.conteudo}"></p></div>
+            </div>
+
+        </div>
+
     </div>
-    <div class="chat-footer">
-        <input type="text" placeholder="Digite uma mensagem...">
-        <button>Enviar mensagem</button>
+    <div >
+        <form class="chat-footer" method="post" th:action="@{/enviar-mensagem/{id}(id=${usuario2.id})}">
+            <input type="text" id="mensagem" name="mensagem" maxlength="255" minlength="1" required>
+            <button type="submit">Enviar mensagem</button>
+        </form>
     </div>
 </div>
 </body>

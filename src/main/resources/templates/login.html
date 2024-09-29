@@ -10,7 +10,7 @@
 <body>
 <div class="container">
     <div class="left">
-        <img src="logo.png" alt="Logo"> <!-- Colocar aqui imagem de logo -->
+        <img th:src="@{/img/logo.svg}" alt="Logo"> <!-- Colocar aqui imagem de logo -->
     </div>
     <div class="right">
         <h2>Login</h2>
@@ -25,7 +25,7 @@
             <button type="submit">Realizar login</button>
         </form>
         <div class="register-link">
-            <p>Não tem uma conta? <a href="@{register}">Registre-se aqui</a></p>
+            <p>Não tem uma conta? <a th:href="@{/novo-usuario}">Registre-se aqui</a></p>
         </div>
     </div>
 </div>
