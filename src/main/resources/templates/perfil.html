@@ -12,24 +12,36 @@
     <div th:replace="header :: header"></div>
     <section class="section">
         <div class="container">
-            <div class="profile-image"></div>
-            <div class="profile-info">
-                <h1 th:text="${usuario.nome}"></h1>
-                <script>
-                    let jsonString = "[[${usuario.getEndereco()}]]".replace(/&quot;/g, '"');
-                    endereco = JSON.parse(jsonString)
-                    document.write(endereco.cidade+', '+endereco.estado)
-                </script>
+            <div th:switch="${usuario}">
+                <div th:case="null">
+                    <div class="profile-image"></div>
+                    <div class="profile-info">
+                        <h1>Usuário não encontrado!</h1>
+                    </div>
+                </div>
+                <div th:case="*">
+                    <div class="profile-image"></div>
+                    <div class="profile-info">
+                        <h1 th:text="${usuario.nome}"></h1>
+                        <script>
+                            let jsonString = "[[${usuario.getEndereco()}]]".replace(/&quot;/g, '"');
+                            endereco = JSON.parse(jsonString)
+                            document.write(endereco.cidade+', '+endereco.estado)
+                        </script>
 
-                <h2>Interesses:</h2>
-                <div th:each="interesse : ${usuario.getInteresses()}">
-                    <p th:text="${interesse.interesse}"></p>
+                        <h2>Interesses:</h2>
+                        <div th:each="interesse : ${usuario.getInteresses()}">
+                            <p th:text="${interesse.interesse}"></p>
+                        </div>
+                    </div>
+                    <div th:if="${dono==true}">
+                        <a id="editar" class="btn btn-secondary btn-sm" th:href="@{/editar-perfil}">Editar perfil</a>
+                        <a id="Ver amigos" class="btn btn-secondary btn-sm" th:href="@{/ver-amigos}">Ver amigos</a>
+
+                    </div>
                 </div>
             </div>
-            <div th:if="dono==true">
-                <button>Editar perfil</button>
-                <button>Ver amigos</button>
-            </div>
+
         </div>
     </section>
     <div th:replace="footer :: footer"></div>

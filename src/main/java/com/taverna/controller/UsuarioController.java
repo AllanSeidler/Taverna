@@ -33,9 +33,7 @@ import java.util.Collection;
  * */
 @Controller
 public class UsuarioController {
-
-    private final String USUARIO_LOGADO = "USUARIO_LOGADO";
-
+    private static final String USUARIO_LOGADO = "USUARIO_LOGADO";
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -44,154 +42,60 @@ public class UsuarioController {
 
     /**
      * @author AllanSeidler
-     *
-     * @implNote
-     * Ajeitar o DS "cadastro de usuário" para que se
-     * encaixe dentro da descrição desse método.
-     *
-     * @return retorna a página de cadastro para o usuário.
+     * @implNote Mostra um formulario para o usuário se cadastrar.
+     * @return Retorna a página de cadastro para o usuário.
      * */
     @GetMapping("/novo-usuario")
     public String mostrarFormNovoUsuario(Usuario usuario, Model model){
         model.addAttribute("interesses_disponiveis",interesseRepository.findAll());
-
         return "cadastroUsuario";
     }
 
     /**
      * @author AllanSeidler
-     *
-     * @implNote
-     * Ajeitar o DS "cadastro de usuário" para que se
+     * @implNote Ajeitar o DS "cadastro de usuário" para que se
      * encaixe dentro da descrição desse método.
-     *
-     * @return retorna para o menu com o usuario logado (não implementado).
+     * @return Retorna para o menu com o usuario logado.
      * */
     @PostMapping("/adicionar-usuario")
     public String adicionarUsuario(@Valid Usuario usuario,
                                    @ModelAttribute("estado") String estado,
                                    @ModelAttribute("cidade") String cidade,
-                                   BindingResult result){
-        if(result.hasErrors()){
-            return "CadastroUsuario";
-        }
+                                   BindingResult result,
+                                   HttpServletRequest request){
+
+        if(result.hasErrors()){return "cadastroUsuario";}
         // converte o endereço para json
         usuario.setEndereco("{\"cidade\":\""+cidade+"\",\"estado\":\""+estado+"\"}");
+        request.getSession().setAttribute(USUARIO_LOGADO,usuario);
 
         usuarioRepository.save(usuario);
         return "redirect:/index";
     }
 
-
+    /**
+     * @author AllanSeidler
+     * @implNote Verifica se há um usuário com os dados cadastrado.
+     * @return Retorna para o menu com o usuario logado.
+     * */
     @PostMapping("/confirmar-login")
     public String confirmarLogin(@ModelAttribute("login") String login,
                                  @ModelAttribute("senha") String senha,
                                  HttpServletRequest request){
 
         Usuario u = usuarioRepository.findUserByLogin(login,senha);
-        if(u!=null){
-            System.out.println(u);
-            request.getSession().setAttribute(USUARIO_LOGADO,u);
-        }
+        System.out.println("usuario logado: "+u);
+        if(u==null) return "redirect:/login";
+
+        request.getSession().setAttribute(USUARIO_LOGADO,u);
         return "redirect:/index";
     }
+
+    /**
+     * @author AllanSeidler
+     * @return Mostra a tela de login.
+     * */
     @GetMapping("/login")
     public String MostrarTelaLogin(){return "login";}
 
-    /**
-     *  @author JALPassini
-     * @author AllanSeidler
-     *
-     *  @impNote
-     *  Ajeitar o DS "Ver Perfil" para que se
-     *  encaixe dentro da descrição desse método.
-     *
-     *  @return retornar para o perfil de um usuario especifico.
-     */
-
-    // Mostra o perfil do usuário
-    @GetMapping("/perfil")
-    public String mostrarPerfilProprio(Model model, HttpServletRequest request) {
-        Usuario usuarioLogado = (Usuario) request.getSession().getAttribute(USUARIO_LOGADO);
-
-        // usuario == usuarioLogado?
-        model.addAttribute("dono", true);
-        // dono do perfil
-        model.addAttribute("usuario", usuarioLogado);
-        System.out.println(usuarioLogado.getEndereco());
-
-        return "perfil";
-    }
-
-    // Mostra o perfil de um usuário específico
-    @GetMapping("/perfil/{id}")
-    public String mostrarPerfil(@PathVariable Integer id, Model model, HttpServletRequest request) {
-        Usuario usuario = usuarioRepository.findById(id).orElse(null);
-        Usuario usuarioLogado = (Usuario) request.getSession().getAttribute(USUARIO_LOGADO);
-
-        if (usuario == null) {
-            model.addAttribute("erro", "Usuário não encontrado.");
-            return "erro_perfil";
-        }
-        // usuario == usuarioLogado?
-        model.addAttribute("dono", usuario.equals(usuarioLogado));
-        // dono do perfil
-        model.addAttribute("usuario", usuario);
-        System.out.println(usuario.getEndereco());
-
-        return "perfil";
-    }
-
-    /**
-     *  @author JALPassini
-     *
-     *  @impNote
-     *  Ajeitar o DS "Editar Perfil" para que se
-     *  encaixe dentro da descrição desse método.
-     *
-     *  @return retornar para o perfil do proprio usuario.
-     */
-
-    // Exibe o formulário de edição de perfil
-    @GetMapping("/editar-perfil/{id}")
-    public String editarPerfil(@PathVariable int id, Model model) {
-        Usuario usuario = usuarioRepository.findById(id).orElse(null);
-
-        if (usuario == null) {
-            model.addAttribute("erro", "Usuário não encontrado.");
-            return "erro_perfil";
-        }
-
-        model.addAttribute("usuario", usuario);
-        model.addAttribute("interesses_disponiveis", interesseRepository.findAll());
-        return "editarPerfil";
-    }
-
-    // Salva as alterações feitas no perfil
-    @PostMapping("/salvar-perfil/{id}")
-    public String salvarPerfil(@PathVariable int id, @Valid Usuario usuario,
-                               BindingResult result, Model model,
-                               @RequestParam("cidade") String cidade,
-                               @RequestParam("estado") String estado) {
-        if (result.hasErrors()) {
-            model.addAttribute("interesses_disponiveis", interesseRepository.findAll());
-            return "editarPerfil";
-        }
-
-        Usuario usuarioExistente = usuarioRepository.findById(id).orElse(null);
-        if (usuarioExistente == null) {
-            model.addAttribute("erro", "Usuário não encontrado.");
-            return "erro_perfil";
-        }
-
-        // Atualiza os campos editáveis do usuário
-        usuarioExistente.setNome(usuario.getNome());
-        usuarioExistente.setLogin(usuario.getLogin());
-        usuarioExistente.setInteresses(usuario.getInteresses());
-        usuarioExistente.setEndereco("{\"cidade\":\"" + cidade + "\",\"estado\":\"" + estado + "\"}");
-
-        usuarioRepository.save(usuarioExistente);
-        model.addAttribute("mensagem", "Alterações realizadas com sucesso.");
-        return "redirect:/perfil/" + id;
-    }
 }

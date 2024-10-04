@@ -1,5 +1,6 @@
 package com.taverna.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MainController {
+    private final String USUARIO_LOGADO = "USUARIO_LOGADO";
 
     /**
      * @author AllanSeidler
@@ -21,7 +23,10 @@ public class MainController {
      * Simplismente o menu.
      * */
     @GetMapping(value = {"/","/index"})
-    public String menu(){
-        return "index";
+    public String menu(HttpServletRequest request){
+        Object usuario = request.getSession().getAttribute(USUARIO_LOGADO);
+        if(usuario==null)
+            return "redirect:/login";
+        else return "index";
     }
 }

@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -14,11 +15,11 @@ public class MensagemID implements Serializable {
     @Column(name = "id_remetente")
     int remetente;
 
-    @Column(name = "id_dentinatario")
+    @Column(name = "id_destinatario")
     int destinatario;
 
     @Column
-    Date data;
+    LocalDateTime data;
 
     public MensagemID() {
 
@@ -40,11 +41,11 @@ public class MensagemID implements Serializable {
         this.destinatario = destinatario;
     }
 
-    public Date getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 

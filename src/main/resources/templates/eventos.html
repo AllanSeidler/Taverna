@@ -6,15 +6,10 @@
     <title>Eventos</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inria+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-<header>
-    <button id="taverna">
-        Taverna
-        <img src="img/logoTaverna.png" alt="Logo Taverna">
-    </button>
-    <button id="adicionar">+ Adicionar</button>
-</header>
+<div th:replace="header :: header"></div>
 <div class="filtros">
     <h2>Filtros</h2>
     <form>
@@ -35,7 +30,7 @@
 </div>
 <div class="banners">
     <div class="banner" id="banner1">
-        <img src="img/eventoYugioh.png" alt="Banner 1">
+        <img src="img/eventosImg/eventoYugioh.png" alt="Banner 1" height="120" width="300">
         <p>Nome: Piedade WCQ<br>
             Tipo de Jogo: Yu-Gi-Oh!<br>
             Modalidade: Online<br>
@@ -44,7 +39,7 @@
             Data: 02/05/2023 às 14:00</p>
     </div>
     <div class="banner" id="banner2">
-        <img src="img/eventoMagic.png" alt="Banner 2">
+        <img th:src="@{img/eventosImg/eventoMagic.png}" alt="Banner 2" height="120" width="300">
         <p>Nome: Copa Basdão<br>
             Tipo de Jogo: Magic The Gathering<br>
             Modalidade: Presencial<br>
@@ -53,7 +48,7 @@
             Data: 30/04/2023 às 19:30</p>
     </div>
     <div class="banner" id="banner3">
-        <img src="img/eventoPokemon.png" alt="Banner 3">
+        <img th:src="@{img/eventosImg/eventoPokemon.png}" alt="Banner 3" height="120" width="300">
         <p>Nome: Ginásio Plus Power Shop<br>
             Tipo de Jogo: Magic The Gathering<br>
             Modalidade: Presencial<br>
@@ -62,5 +57,6 @@
             Data: 30/04/2023 às 19:30</p>
     </div>
 </div>
+<div th:replace="footer :: footer"></div>
 </body>
 </html>
