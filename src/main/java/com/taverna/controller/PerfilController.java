@@ -1,6 +1,7 @@
 package com.taverna.controller;
 
 import com.taverna.model.Usuario;
+import com.taverna.repository.AmizadeRepository;
 import com.taverna.repository.InteresseRepository;
 import com.taverna.repository.UsuarioRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 public class PerfilController {
     private final String USUARIO_LOGADO = "USUARIO_LOGADO";
@@ -22,6 +25,8 @@ public class PerfilController {
     private UsuarioRepository usuarioRepository;
     @Autowired
     private InteresseRepository interesseRepository;
+    @Autowired
+    private AmizadeRepository amizadeRepository;
 
     /**
      *  @author JALPassini
@@ -31,17 +36,10 @@ public class PerfilController {
      *  @return Mostra o perfil do usuario logado.
      */
 
-    // Mostra o perfil do usuário
     @GetMapping("/perfil")
     public String mostrarPerfilProprio(Model model, HttpServletRequest request) {
         Usuario usuarioLogado = (Usuario) request.getSession().getAttribute(USUARIO_LOGADO);
-
-        if(usuarioLogado==null) return "login";
-        model.addAttribute("dono", true);
-        model.addAttribute("usuario", usuarioLogado);
-        System.out.println(usuarioLogado);
-
-        return "perfil";
+        return mostrarPerfil(usuarioLogado.getId(),model,request);
     }
 
     /**
@@ -50,7 +48,7 @@ public class PerfilController {
      *
      *  @implNote verifica se o usuário com o id dado é o mesmo
      *  que está logado. Em caso afirmativo, o botão de edição
-     *  é habilitado.
+     *  e a lista de amigos são habilitadas.
      *
      *  @return Mostra o perfil de um usuário especifico.
      */
@@ -59,16 +57,10 @@ public class PerfilController {
         Usuario usuario = usuarioRepository.findById(id).orElse(null);
         Usuario usuarioLogado = (Usuario) request.getSession().getAttribute(USUARIO_LOGADO);
 
-        if (usuario == null) {
-            model.addAttribute("erro", "Usuário não encontrado.");
-            return "erro_perfil";
-        }
-        // usuario == usuarioLogado?
-        model.addAttribute("dono", usuario.equals(usuarioLogado));
-        // dono do perfil
-        model.addAttribute("usuario", usuario);
-        System.out.println(usuario.getEndereco());
+        if (usuario == null)  return "perfil";
 
+        model.addAttribute("dono", usuario.equals(usuarioLogado));
+        model.addAttribute("usuario", usuario);
         return "perfil";
     }
 
@@ -125,4 +117,19 @@ public class PerfilController {
 
         return "redirect:/perfil";
     }
+
+    @GetMapping("/ver-amigos")
+    public String mostrarAmigos(Model model, HttpServletRequest request){
+        Usuario usuarioLogado = (Usuario) request.getSession().getAttribute(USUARIO_LOGADO);
+        if (usuarioLogado == null)  return "login";
+
+        List<Usuario> amigos = amizadeRepository.findAllFriends(usuarioLogado.getId());
+        System.out.println(amigos);
+
+        model.addAttribute("usuario", usuarioLogado);
+        model.addAttribute("amigos",amigos);
+
+        return "amigos";
+    }
+
 }

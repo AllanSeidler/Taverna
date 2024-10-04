@@ -6,7 +6,6 @@ import jakarta.persistence.Embeddable;
 import org.springframework.cglib.core.Local;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
@@ -22,6 +21,11 @@ public class MensagemID implements Serializable {
 
     @Column
     LocalDateTime data;
+
+    public MensagemID() {
+
+    }
+
 
     public int getRemetente() {
         return remetente;

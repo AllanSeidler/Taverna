@@ -20,7 +20,7 @@ public class Mensagem {
 
 
     public String getConteudo(){
-         return this.conteudo;
+        return this.conteudo;
     }
     public void setConteudo(String mail){
         this.conteudo = mail;

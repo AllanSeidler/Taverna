@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-
+'
 /**
  * @author AllanSeidler
  *
@@ -41,7 +41,8 @@ public class ChatController {
      * @implNote
      * Abre o chat do usuario locado com o usuario ID=id.
      * */
-    @GetMapping("/conversa/{id}")
+
+    @GetMapping("/conversar/{id}")
     public String conversarCom(@PathVariable int id, Model model, HttpServletRequest request){
         Usuario usuarioLogado = (Usuario) request.getSession().getAttribute(USUARIO_LOGADO);
         if(usuarioLogado!=null) {
@@ -98,3 +99,4 @@ public class ChatController {
 
 
 }
+
