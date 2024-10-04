@@ -1,6 +1,8 @@
 package com.taverna.model;
 
+
 import com.taverna.model.AmizadeID;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -23,5 +25,6 @@ public class Amizade {
 
     public AmizadeID getAmizadeID() {
         return amizadeID;
+
     }
 }

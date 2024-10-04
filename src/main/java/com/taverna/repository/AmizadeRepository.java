@@ -21,4 +21,5 @@ public interface AmizadeRepository extends JpaRepository<Amizade, AmizadeID> {
             "(a.amizadeID.usuario1Id = u.id or a.amizadeID.usuario2Id = u.id) " +
             "and u.id != :userId and a.aceita=true")
     List<Usuario> findAllFriends(@Param("userId") int userId);
+
 }

@@ -28,7 +28,6 @@ public class PerfilController {
     @Autowired
     private AmizadeRepository amizadeRepository;
 
-
     /**
      *  @author JALPassini
      *  @author AllanSeidler
@@ -36,7 +35,6 @@ public class PerfilController {
      *  @implNote Verifica se o usuario está logado.
      *  @return Mostra o perfil do usuario logado.
      */
-
 
     @GetMapping("/perfil")
     public String mostrarPerfilProprio(Model model, HttpServletRequest request) {
@@ -60,9 +58,9 @@ public class PerfilController {
         Usuario usuarioLogado = (Usuario) request.getSession().getAttribute(USUARIO_LOGADO);
 
         if (usuario == null)  return "perfil";
+
         model.addAttribute("dono", usuario.equals(usuarioLogado));
         model.addAttribute("usuario", usuario);
-
         return "perfil";
     }
 
@@ -133,4 +131,5 @@ public class PerfilController {
 
         return "amigos";
     }
+
 }
