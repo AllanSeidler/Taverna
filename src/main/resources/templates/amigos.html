@@ -39,7 +39,7 @@
                 <tr th:each="amigo : ${amigos}">
                     <td> sem foto </td>
                     <td><h5 th:text="${amigo.nome}"></h5></td>
-                    <td><a class="link-success" th:href="@{/conversar/{id}(id=${amigo.id})}">Coversar</a></td>
+                    <td><a id="Conversar" class="link-success" th:href="@{/conversar/{id}(id=${amigo.id})}">Coversar</a></td>
 
                 </tr>
             </tbody>

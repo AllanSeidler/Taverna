@@ -75,8 +75,7 @@ public class PerfilController {
         Usuario usuario = (Usuario) request.getSession().getAttribute(USUARIO_LOGADO);
 
         if (usuario == null) {
-            model.addAttribute("erro", "Usuário não encontrado.");
-            return "redirect:/login";
+            return "login";
         }
 
         model.addAttribute("usuario", usuario);
@@ -102,8 +101,7 @@ public class PerfilController {
 
         Usuario usuarioExistente = (Usuario) request.getSession().getAttribute(USUARIO_LOGADO);
         if (usuarioExistente == null) {
-            model.addAttribute("erro", "Usuário não encontrado.");
-            return "redirect:/login";
+            return "login";
         }
 
         // Atualiza os campos editáveis do usuário
@@ -113,8 +111,6 @@ public class PerfilController {
         usuarioExistente.setEndereco("{\"cidade\":\"" + cidade + "\",\"estado\":\"" + estado + "\"}");
 
         usuarioRepository.save(usuarioExistente);
-        model.addAttribute("mensagem", "Alterações realizadas com sucesso.");
-
         return "redirect:/perfil";
     }
 
@@ -124,7 +120,6 @@ public class PerfilController {
         if (usuarioLogado == null)  return "login";
 
         List<Usuario> amigos = amizadeRepository.findAllFriends(usuarioLogado.getId());
-        System.out.println(amigos);
 
         model.addAttribute("usuario", usuarioLogado);
         model.addAttribute("amigos",amigos);
