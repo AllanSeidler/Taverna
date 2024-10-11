@@ -29,7 +29,7 @@
     <div>
         <form class="chat-footer" method="post" th:action="@{/enviar-mensagem/{id}(id=${usuario2.id})}">
             <input type="text" id="mensagem" name="mensagem" maxlength="255" minlength="1" required>
-            <button type="submit">Enviar mensagem</button>
+            <button type="submit" id="enviarMensagem" >Enviar mensagem</button>
         </form>
     </div>
 </div>

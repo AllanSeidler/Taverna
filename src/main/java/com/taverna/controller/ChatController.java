@@ -52,7 +52,6 @@ public class ChatController {
                 model.addAttribute("usuario1", usuarioLogado);
                 model.addAttribute("usuario2", usuario2);
                 List<Mensagem> mensagens = mensagemRepository.findMensagensByUsers(usuarioLogado.getId(), usuario2.getId());
-                System.out.println(mensagens);
                 model.addAttribute("mensagens", mensagens);
             } else return "erroChat";
 
@@ -83,12 +82,9 @@ public class ChatController {
                 mensagem1.setMensagemID(mensagemID);
                 mensagem1.setConteudo(mensagem);
 
-                System.out.println(mensagem1);
+
                 mensagemRepository.save(mensagem1);
-
-
                 mensagens.add(mensagem1);
-
                 model.addAttribute("mensagens", mensagens);
             }
         } else return "/login";
