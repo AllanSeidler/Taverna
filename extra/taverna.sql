@@ -39,6 +39,7 @@ CREATE TABLE `amizade` (
 
 LOCK TABLES `amizade` WRITE;
 /*!40000 ALTER TABLE `amizade` DISABLE KEYS */;
+INSERT INTO `amizade` VALUES (1,2,_binary '');
 /*!40000 ALTER TABLE `amizade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +121,7 @@ CREATE TABLE `interesses_usuario` (
 
 LOCK TABLES `interesses_usuario` WRITE;
 /*!40000 ALTER TABLE `interesses_usuario` DISABLE KEYS */;
-INSERT INTO `interesses_usuario` VALUES (1,2),(1,3);
+INSERT INTO `interesses_usuario` VALUES (2,1),(3,1),(1,2),(2,2),(3,3);
 /*!40000 ALTER TABLE `interesses_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,6 +150,7 @@ CREATE TABLE `mensagem` (
 
 LOCK TABLES `mensagem` WRITE;
 /*!40000 ALTER TABLE `mensagem` DISABLE KEYS */;
+INSERT INTO `mensagem` VALUES (1,2,'ola amigo','2024-09-29 14:32:53'),(1,2,'Mensagem que estou escrevendo','2024-09-29 15:30:30'),(1,2,'sdf´mpkqernoghqe','2024-09-29 15:30:51'),(1,2,'sdf´mpkqernoghqe','2024-09-29 15:42:04'),(1,2,'sdf´mpkqernoghqe','2024-09-29 15:42:05'),(1,2,'sdf´mpkqernoghqe','2024-09-29 15:42:06'),(1,2,'Bati a cara no teclado sem querer :P','2024-09-30 12:53:28'),(1,2,'adopsjdoufhdsifh','2024-09-30 15:18:01'),(1,2,'sdçmkdlfkvn','2024-09-30 15:18:03'),(1,2,'Oi amigo :D como vai','2024-09-30 15:18:39'),(1,2,'ola amigo','2024-10-03 20:55:41'),(1,2,'vc é um amigo','2024-10-03 21:01:06'),(1,2,'asdasdasd','2024-10-04 19:37:51'),(1,2,'Só fazendo um teste pq tinha dado erro aq','2024-10-04 19:38:03'),(1,2,'Testando de novo','2024-10-04 19:57:36'),(1,2,'Uma mensagem só pra tirar o print','2024-10-10 22:38:00'),(2,1,'Oi, como vai','2024-09-29 15:52:03'),(2,1,'tudo bem ai?','2024-09-29 15:52:15'),(2,1,'tu mandou um monte de \"sdf´mpkqernoghqe\"','2024-09-29 15:52:37'),(2,1,'Blz mano','2024-10-04 19:38:30'),(2,1,'eai, funcionou?','2024-10-04 19:58:13');
 /*!40000 ALTER TABLE `mensagem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,7 +225,7 @@ CREATE TABLE `usuario` (
   `endereco` json NOT NULL COMMENT 'como json por hora, talvez vire uma tabela a parte futuramente',
   PRIMARY KEY (`id`),
   UNIQUE KEY `login_UNIQUE` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,7 +234,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Allan Eduardo','AllanSeidler','dsfwef','{\"cidade\": \"adfqwef\", \"estado\": \"wefwef\"}');
+INSERT INTO `usuario` VALUES (1,'Allan Eduardo','AllanSeidler','senha','{\"cidade\": \"Londrina\", \"estado\": \"Paraná\"}'),(2,'Luqueta','amigo 2','senha','{\"cidade\": \"Little London\", \"estado\": \"Parara\"}'),(3,'Eduardo','Eduardo01','123456','{\"cidade\": \"Londrina\", \"estado\": \"Paraná\"}');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -245,4 +247,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-09  9:02:21
+-- Dump completed on 2024-10-11  6:38:06
